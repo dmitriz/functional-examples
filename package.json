@@ -1,0 +1,26 @@
+{
+  "name": "dr-frisbe-course",
+  "version": "0.1.0",
+  "main": "server.js",
+  "description": "My project",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmitriz/dr-frisbe-course.git"
+  },
+  "author": "Dmitri Zaitsev <dmitri14@gmail.com> (https://github.com/dmitriz)",
+  "config": {
+    "port": "8001"
+  },
+  "scripts": {
+    "start": "node server",
+    "pub": "npm version patch && npm publish && git push"
+  },
+  "keywords": [
+    "dr-frisbe-course"
+  ],
+  "bugs": {
+    "url": "https://github.com/dmitriz/dr-frisbe-course/issues"
+  },
+  "homepage": "https://github.com/dmitriz/dr-frisbe-course#readme"
+}
