@@ -39,7 +39,12 @@ const Left = x => (
   }
 )
 
+
+// ensure null will always go Left
+const fromNullable = x =>
+  x != null ? Right(x) : Left(null)
+
 const Either = x =>
   null == x ? Left(x) : Right(x)
 
-module.exports = { Box, Either }
+module.exports = { Box, Either, Right, Left, fromNullable }
