@@ -1,5 +1,5 @@
 const { List, Map } = require('immutable-ext')
-const Box = require('../examples/lib')
+const { Box } = require('../examples/lib')
 
 // identity function
 const id = x => x
