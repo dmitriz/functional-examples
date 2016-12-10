@@ -33,10 +33,10 @@ const SumD = x =>
 
   // destructuring value for the key 'x'
   concat: ({x: y}) =>
-    Sum(x + y),
+    SumD(x + y),
 
   // custom getter used by console.log
-  inspect: () => `Sum(${x})`
+  inspect: () => `SumD(${x})`
 })
 
 const resSumD = SumD(11).concat(SumD(222))
