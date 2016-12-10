@@ -1,7 +1,6 @@
 
 const Right = x => (
   {
-    // Now x is available in the closure instead of 'this'
 
     // Right applies f to x
     map: f => Right(f(x)),
