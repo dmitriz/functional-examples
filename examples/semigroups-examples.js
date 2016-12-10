@@ -1,5 +1,6 @@
 // https://github.com/DrBoolean/immutable-ext
-// Map extends 'concat' method to components
+// Map extends 'concat' method to components:
+// https://github.com/DrBoolean/immutable-ext/blob/master/browser_dist/index.js#L51
 const {Map} = require('immutable-ext')
 
 
