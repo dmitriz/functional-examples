@@ -3,7 +3,7 @@
 // identity functor
 const Box = x => (
 
-  // Box returns container object wrapping x
+  // Box returns a container object (implicitly) wrapping x
   {
 
     // functor map, sends f:a->b into map(f):Box(a)->Box(b),
