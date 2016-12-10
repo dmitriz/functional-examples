@@ -69,4 +69,7 @@ const first = xs =>
 
 console.log(sum([1,3,4]))
 console.log(all([true, false, true]))
+
+// unsafe if empty array is provided,
+// because no Monoid structure
 console.log(first([1,3,4]))
