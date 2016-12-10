@@ -1,5 +1,3 @@
-// box.js
-
 // identity functor
 const Box = x => (
 
