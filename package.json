@@ -25,6 +25,7 @@
   "homepage": "https://github.com/dmitriz/dr-frisbe-course#readme",
   "dependencies": {
     "data.task": "^3.1.1",
+    "futurize": "^1.0.2",
     "immutable": "^3.8.1",
     "immutable-ext": "^1.0.6"
   }
