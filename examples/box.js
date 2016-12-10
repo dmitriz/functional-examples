@@ -3,9 +3,8 @@
 // identity functor
 const Box = x => (
 
-  // container object wrapping x
+  // Box returns container object wrapping x
   {
-    // Now x is available in the closure instead of 'this'
 
     // functor map, sends f:a->b into map(f):Box(a)->Box(b),
     // the same as f(x) but wrapped into the Box container,
