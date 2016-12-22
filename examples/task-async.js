@@ -5,7 +5,6 @@ const Task = require('data.task')
 // standard Nodejs library for file access
 const fs = require('fs')
 
-
 // general purpose handlers for errors and success
 const showErr = e => console.log('err :', e)
 const showSuc = x => console.log('success: ', x)
@@ -13,18 +12,18 @@ const showSuc = x => console.log('success: ', x)
 
 // general purpose Task for reading file
 const readFile = (fileName, enc) =>
-  new Task( (rej, res) =>
+  new Task((rej, res) =>
     fs.readFile(fileName, enc, (err, contents) =>
       err ? rej(err) : res(contents)
-    ) )
+  ))
 
 
 // general purpose Task for writing file
 const writeFile = (fileName, contents) =>
-  new Task( (rej, res) =>
+  new Task((rej, res) =>
     fs.writeFile(fileName, contents, (err, success) =>
       err ? rej(err) : res(success)
-    ) )
+  ))
 
 
 const app = () =>
