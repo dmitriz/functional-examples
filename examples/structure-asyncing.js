@@ -6,9 +6,12 @@ const { List, Map } = require('immutable-ext')
 
 const httpGet = (path, params) =>
 
-  // mocking 'result' as result of get
+  // mocking return result of get
+  // immeditate task returning the string
   Task.of(`${path} result`)
 
+
+// Map of routes
 Map({
   home: '/',
   about: '/about-us',
@@ -21,7 +24,7 @@ Map({
 .fork( console.error, console.log )
 
 
-
+// Map of route arrays
 Map({
   home: ['/', '/home'],
   about: ['/about-us']
@@ -29,8 +32,8 @@ Map({
 .traverse(
   Task.of,
 
-  // routes are arrays,
-  // wrap into List and traverse
+  // now routes are arrays,
+  // wrap them into List and traverse
   routes => List(routes).traverse(
     Task.of, route => httpGet(route, {})
   )
