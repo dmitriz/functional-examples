@@ -9,6 +9,19 @@ See also the wonderful e-book <a href="https://drboolean.gitbooks.io/mostly-adeq
 Professor Frisby's Mostly Adequate Guide to Functional Programming</a>
 by the same author.
 
+## Running Examples
+
+Install the packages with either of
+```js
+yarn install
+npm install
+```
+then enter the `examples` directory and run the files directly with node
+```js
+node <file.js>
+```
+
+
 ## Related Projects
 
 - [Monadic Libraries Examples with Tests](https://github.com/dmitriz/monadic-libraries-examples)
