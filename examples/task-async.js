@@ -17,7 +17,6 @@ const readFile = (fileName, enc) =>
       err ? rej(err) : res(contents)
   ))
 
-
 // general purpose Task for writing file
 const writeFile = (fileName, contents) =>
   new Task((rej, res) =>
@@ -42,3 +41,26 @@ const app = () =>
 app().fork( showErr, showSuc )
 
 console.log("Check 'config1.json'!")
+
+
+// optionally using Futurize
+// https://github.com/futurize/futurize
+const futurize = require('futurize').futurize
+const future = futurize(Task)
+
+// wrap Node's native read and write files into Futures
+// (i.e. tasks to be run in the future)
+const readFuture = future(fs.readFile)
+const writeFuture = future(fs.writeFile)
+
+// setup the task
+const app1 = () =>
+  readFuture('config.json', 'utf-8')
+    .map( contents => contents.replace(/8/g, '6') )
+    .chain( contents => writeFuture('config2.json', contents) )
+
+// run the task
+app1().fork( showErr, showSuc )
+
+console.log("Check 'config2.json'!")
+
