@@ -46,13 +46,14 @@ const tryCatch = f => {
 }
 
 const getPort = (fileName) =>
-  tryCatch(() => fs.readFileSync(fileName))
-  .map(c => JSON.parse(c))
-  // .map(c => tryCatch(() => JSON.parse(c)))
-  .fold(
-    e => 3000,
-    c => c.port
-  )
+  tryCatch( () => fs.readFileSync(fileName) )
+    .map(c => JSON.parse(c))
+    
+    // .map(c => tryCatch(() => JSON.parse(c)))
+    .fold(
+      e => 3000,
+      c => c.port
+    )
 
 console.log(getPort()) //=> 3000
 console.log(getPort('con.json')) //=> 3000
