@@ -45,7 +45,7 @@ console.log("Check 'config1.json'!")
 
 // optionally using Futurize
 // https://github.com/futurize/futurize
-const futurize = require('futurize').futurize
+const { futurize } = require('futurize')
 const future = futurize(Task)
 
 // wrap Node's native read and write files into Futures
