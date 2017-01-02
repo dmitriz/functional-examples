@@ -1,7 +1,12 @@
 const Box = x => (
   {
+    // b2 must be a boxed function Box(f)
     ap: b2 => b2.map(x),
+
+    // f must be from any type a to any type b
     map: f => Box(f(x)),
+
+    // f must be from any type a into the boxed type Box(a)
     chain: f => f(x),
     fold: f => f(x),
     inspect: () => `Box(${x})`

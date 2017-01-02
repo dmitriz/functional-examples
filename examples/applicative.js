@@ -8,6 +8,10 @@ const res =
   // apply our wrapped function to the Box'ed value 2
   .ap(Box(2))
 
+// This uses switched order comparing 
+// to the Fantasy Land applicative spec
+// ap :: f a ~> f (a -> b) -> f b
+
 console.log(res) //=> Box(3)
 
 
@@ -29,3 +33,4 @@ const liftA2 = (f, fx, fy) =>
 const add = x => y => x + y
 
 console.log(liftA2(add, Box(2), Box(4)))
+// -> Box(6)
