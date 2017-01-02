@@ -11,9 +11,9 @@ const showSuc = x => console.log('success: ', x)
 
 
 // general purpose Task for reading file
-const readFile = (fileName, enc) =>
+const readFile = (fileName, encoding) =>
   new Task((rej, res) =>
-    fs.readFile(fileName, enc, (err, contents) =>
+    fs.readFile(fileName, encoding, (err, contents) =>
       err ? rej(err) : res(contents)
   ))
 
@@ -27,13 +27,14 @@ const writeFile = (fileName, contents) =>
 
 const app = () =>
 
-  // read file
+  // read file - returns Task
   readFile('config.json', 'utf-8')
 
-  // modify contents
+  // modify contents - plain function inside
   .map( contents => contents.replace(/8/g, '6') )
 
   // write modified content into new file
+  // function with lifted target inside
   .chain( contents => writeFile('config1.json', contents) )
 
 
