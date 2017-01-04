@@ -1,6 +1,8 @@
 const fs = require('fs')
 
 const Task = require('data.task')
+
+// https://github.com/DrBoolean/immutable-ext
 const { List, Map } = require('immutable-ext')
 
 
@@ -12,16 +14,23 @@ const httpGet = (path, params) =>
 
 
 // Map of routes
-Map({
+const routes = Map({
   home: '/',
   about: '/about-us',
   blog: '/blog'
 })
+
+// apply the 2nd argument function to each route
+// and wrap into Task
+routes
 .traverse(
   Task.of,
   route => httpGet(route, {})
 )
+
+// run the (clone of) the Task 
 .fork( console.error, console.log )
+// -> Map { "home": "/ result", "about": "/about-us result", "blog": "/blog result" }
 
 
 // Map of route arrays

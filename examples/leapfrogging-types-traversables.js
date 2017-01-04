@@ -4,17 +4,18 @@ const Task = require('data.task')
 const { List } = require('immutable-ext')
 
 // https://github.com/futurize/futurize
-const futurize = require('futurize').futurize(Task)
+const FutureTask = require('futurize').futurize(Task)
 
-// lazy task
-const readFile = futurize(fs.readFile)
+// lazy task for readFile
+const readFileTask = FutureTask(fs.readFile)
 
 // need to wrap into List that provides 'traverse'
-const files = List(['box.js', 'config.json'])
+const files = List(['config.json', 'config1.json'])
 
 files
 
-  // Task will go outside of the array of files
-  // 1st argument 'Task.of' is an applicative functor
-  .traverse( Task.of, fn => readFile(fn, 'utf-8') )
+  // we have list of files but want task of lists
+  // 1st argument 'Task.of' lifts to Task - applicative functor
+  // 2nd argument 
+  .traverse( Task.of, fn => readFileTask(fn, 'utf-8') )
   .fork(console.error, console.log)
