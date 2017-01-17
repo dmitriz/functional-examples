@@ -20,20 +20,19 @@ const Box = x => (
   }
 )
 
-const moneyToFloat =  str =>
 
-  // unnesting expressions!
+const moneyToFloat =  str =>
   Box(str)
-  .map(s => s.replace(/\$/g, ''))
-  .map(r => parseFloat(r))
-  // .fold(r => parseFloat(r))
+    .map(s => s.replace(/\$/g, ''))
+    .map(r => parseFloat(r))
+    // .fold(r => parseFloat(r))
 
 
 const percentToFloat = str =>
   Box(str.replace(/\%/g, ''))
-  .map(replaced => parseFloat(replaced))
-  .map(number => number * 0.01)
-  // .fold(number => number * 0.01)
+    .map(replaced => parseFloat(replaced))
+    .map(number => number * 0.01)
+    // .fold(number => number * 0.01)
 
 
 // function of 2 arguments!
@@ -44,20 +43,20 @@ const applyDiscount = (price, discount) =>
   // otherwise we would need to wrap it as Box(moneyToFloat(price))
   moneyToFloat(price)
 
-  // no further chaining, so get the value
-  .fold(cost =>
+    // no further chaining, so get the value
+    .fold(cost =>
 
-    // pick the 2nd argument
-    percentToFloat(discount)
+      // pick the 2nd argument
+      percentToFloat(discount)
 
-    // also here get the value
-    .fold(savings =>
+        // also here get the value
+        .fold(savings =>
 
-      // cost is available in the closure
-      // as result of previous calculations
-      cost - cost * savings
+          // cost is available in the closure
+          // as result of previous calculations
+          cost - cost * savings
+        )
     )
-  )
 
 
 console.log(moneyToFloat(' $33 ')) //=> Box(33)
