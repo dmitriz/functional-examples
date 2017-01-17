@@ -18,7 +18,8 @@ const Box = x => (
     // does not return any Box container, so can't be chained with map
     fold: f => f(x),
 
-    // custom getter function -- called by console.log
+    // custom getter function -- called by console.log in NodeJS
+    // in browser use `toString()` and call `console.log(String(x))`
     inspect: () => `Box(${x})`
   }
 )
