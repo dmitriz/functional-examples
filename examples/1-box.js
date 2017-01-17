@@ -1,6 +1,6 @@
 // box.js
 
-// identity functor
+// Identity functor
 const Box = x => (
 
   // Box returns a container object (implicitly) wrapping x
@@ -25,17 +25,18 @@ const Box = x => (
 
 const nextCharForNumberString = str =>
   Box(str)
-  .map(s => s.trim())
-  .map(r => parseInt(r))
-  .map(i => i + 1)
-  .map(i => String.fromCharCode(i))
+    .map(s => s.trim())
+    .map(r => parseInt(r))
+    .map(i => i + 1)
+    .map(i => String.fromCharCode(i))
 
-  // returns raw value
-  .fold(s => s.toLowerCase())
+    // returns raw value
+    .fold(s => s.toLowerCase())
+
 
 const result = nextCharForNumberString(' 64 ')
 
-console.log(result) //=> a
+console.log('nextCharForNumberString for 64 is: ', result) //=> a
 
 
 
