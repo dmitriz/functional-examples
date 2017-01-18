@@ -2,6 +2,8 @@ const fs = require('fs')
 
 const Right = x => (
   {
+
+    // like map but returns "unboxed" value
     chain: f => f(x),
 
     // Right applies f to x
@@ -45,12 +47,16 @@ const tryCatch = f => {
   }
 }
 
-const getPort = (fileName) =>
+const getPort = fileName =>
+
+  // this will not "explode" if fileName is not found!
   tryCatch( () => fs.readFileSync(fileName) )
     .map(c => JSON.parse(c))
-    
+
     // .map(c => tryCatch(() => JSON.parse(c)))
     .fold(
+
+      // default port in case of error
       e => 3000,
       c => c.port
     )
@@ -61,7 +67,7 @@ console.log(getPort('config.json')) //=> 8080
 
 
 
-const getPortNew = (fileName) =>
+const getPortNew = fileName =>
   tryCatch(() => fs.readFileSync(fileName))
   .chain(c => tryCatch(() => JSON.parse(c)))
   .fold(
