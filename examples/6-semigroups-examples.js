@@ -28,7 +28,6 @@ const All = x =>
 })
 
 
-
 const First = x =>
 ({
   x,
@@ -38,7 +37,6 @@ const First = x =>
   // custom getter used by console.log
   inspect: () => `First(${x})`
 })
-
 
 
 const acct1 = Map({
