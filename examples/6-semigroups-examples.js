@@ -17,7 +17,6 @@ const Sum = x =>
 })
 
 
-
 const All = x =>
 ({
   x,
