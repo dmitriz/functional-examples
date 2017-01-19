@@ -1,3 +1,5 @@
+const { Map } = require('immutable-ext')
+
 const result = [1,3].concat([4,5]).concat([5,6,7])
 
 console.log(result)
@@ -63,8 +65,6 @@ console.log(resFalse)
 console.log(resTrue)
 
 
-
-
 const First = x =>
 ({
   x,
@@ -79,3 +79,37 @@ const First = x =>
 const resFirst = First("bla").concat(First("last"))
 
 console.log(resFirst)
+
+
+// Wrap each prop into corresponding Semigroup!
+
+// User account 1
+const acc1 = Map({
+
+  // First takes first when combined
+  name: First('Nico'),
+
+  // All applies logical all
+  isPaid: All(true),
+
+  // Sum sums the numbers when combined
+  points: Sum(10),
+
+  // Array already has 'concat' method
+  friends: ['Franklin']
+})
+
+const acc2 = Map({
+  name: First('Nico'),
+  isPaid: All(false),
+  points: Sum(2),
+  friends: ['Gatsby']
+})
+
+const res = acc1.concat(acc2)
+
+console.log(
+  'Combine: ', acc1.toJS(),
+  '\n with: ', acc2.toJS(),
+  '\n yields: ', res.toJS()
+)

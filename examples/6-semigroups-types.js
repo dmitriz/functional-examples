@@ -6,8 +6,8 @@ const {Map} = require('immutable-ext')
 
 // Sum container adds semigroup structure
 // via the 'concat' method
-const Sum = x =>
-({
+const Sum = x => ({
+
   //  make x accessible via 'x' prop
   x,
 
@@ -27,8 +27,7 @@ console.log(
 
 
 // All container add logical (boolean) 'concat'
-const All = x =>
-({
+const All = x => ({
   x,
   concat: ({x: y}) => All(x && y),
 
@@ -43,8 +42,7 @@ console.log(
 
 
 
-const First = x =>
-({
+const First = x => ({
   x,
 
   // throw away the arg and keep our First
@@ -69,7 +67,28 @@ const acct2 = Map({
   friends: ['Gatsby']
 })
 
+
+// The semigroup structure combines both objects componentwise
 // individual custom 'concat' applies in each component
 const res = acct1.concat(acct2)
 
 console.log(res.toJS())
+
+
+
+// from the comments to video
+// x must be an Either
+const FirstEither = x => ({
+  fold: f => x.fold(f, f),
+  concat: o => x.isLeft ? o : First(x)
+})
+
+
+const find = (xs, f) => List(xs)
+  .foldMap(
+    x => FirstEither(f(x) ? Right(x) : Left()),
+    First.empty
+  )
+  .fold(x => x)
+
+
