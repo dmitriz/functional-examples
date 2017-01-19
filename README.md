@@ -9,6 +9,25 @@ See also the wonderful e-book <a href="https://drboolean.gitbooks.io/mostly-adeq
 Professor Frisby's Mostly Adequate Guide to Functional Programming</a>
 by the same author.
 
+
+## What makes Prof. Frisby's course and book awesome?
+
+Both course and book amazingly manage to avoid suffering from the two widespread diseases when explaining abstract functional concepts: 
+
+- The first disease is to stay with abstract artifically simplified examples that can be easily manipulated 
+directly without the theory, thus failing to illustrate the very benefits of the theory and abstraction. 
+The reader not familiar with real world uses of that abstraction is therefore struggling to appreciate its usefulness.
+
+- The second disease is to bring complete nontrivial real world examples relying on all technical details involved,
+including those not relevant to the point of the explanation. The reader not familiar with those technical details
+can feel distracted if not confused.
+
+Professor Frisby masterfully manages to navigate the reader through convincing real world examples
+demonstrating real benefits of the functional abstractions with sharp focus and no distraction by unnecessary details.
+
+
+
+
 ## Running Examples
 
 Install the packages with either of
