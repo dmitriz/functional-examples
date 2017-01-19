@@ -4,38 +4,54 @@
 const {Map} = require('immutable-ext')
 
 
+// Sum container adds semigroup structure
+// via the 'concat' method
 const Sum = x =>
 ({
+  //  make x accessible via 'x' prop
   x,
 
   // destructuring value for the key 'x'
-  concat: ({x: y}) =>
-    Sum(x + y),
+  // equivalent to y = argument.x
+  // Usage: Sum(n).concat(Sum(m)) //=> Sum(n+m)
+  concat: ({x: y}) => Sum(x + y),
 
   // custom getter used by console.log
-  inspect: () => `Sum(${x})`
+  inspect: _ => `Sum(${x})`
 })
 
+console.log(
+  'Sum(22).concat(Sum(33)): ',
+  Sum(22).concat(Sum(33))
+)
 
+
+// All container add logical (boolean) 'concat'
 const All = x =>
 ({
   x,
-  concat: ({x: y}) =>
-    All(x && y),
+  concat: ({x: y}) => All(x && y),
 
   // custom getter used by console.log
-  inspect: () => `All(${x})`
+  inspect: _ => `All(${x})`
 })
+
+console.log(
+  'All(true).concat(All(false)): ',
+  All(true).concat(All(false))
+)
+
 
 
 const First = x =>
 ({
   x,
+
   // throw away the arg and keep our First
   concat: _ => First(x),
 
   // custom getter used by console.log
-  inspect: () => `First(${x})`
+  inspect: _ => `First(${x})`
 })
 
 
