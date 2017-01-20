@@ -5,6 +5,7 @@ const { Sum } = require('../examples/monoid')
 const res = List.of(Sum(1), Sum(33), Sum(4))
 
   // raw value from the list via concat
+  // provide value to start from
   .fold(Sum.empty())
 
 console.log(res)
