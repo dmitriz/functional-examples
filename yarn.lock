@@ -124,6 +124,13 @@ fantasy-identities@0.0.1:
   dependencies:
     daggy "0.0.1"
 
+fluture@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/fluture/-/fluture-4.3.0.tgz#cc08cce21d2497093cffb0aec7e390af53168742"
+  dependencies:
+    inspect-f "^1.2.0"
+    sanctuary-type-classes "^2.0.1"
+
 forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
@@ -203,6 +210,10 @@ immutable-ext@^1.0.6:
 immutable@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
+
+inspect-f@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/inspect-f/-/inspect-f-1.2.0.tgz#80b8f1995e36222d11f22ed66d9b7d8559c400c9"
 
 is-my-json-valid@^2.12.4:
   version "2.15.0"
@@ -311,6 +322,16 @@ request@^2.79.0:
     tough-cookie "~2.3.0"
     tunnel-agent "~0.4.1"
     uuid "^3.0.0"
+
+sanctuary-type-classes@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-2.0.1.tgz#06b6cfd78e3e8d85cd93f5c2d7b08796b68d1e74"
+  dependencies:
+    sanctuary-type-identifiers "1.0.x"
+
+sanctuary-type-identifiers@1.0.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-1.0.0.tgz#e8f359f006cb5e624cfb8464603fc114608bde9f"
 
 sntp@1.x.x:
   version "1.0.9"
