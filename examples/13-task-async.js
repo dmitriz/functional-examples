@@ -25,7 +25,7 @@ const writeFile = (fileName, contents) =>
   ))
 
 
-const app = () =>
+const app = _ =>
 
   // read file - returns Task
   readFile('config.json', 'utf-8')
@@ -55,7 +55,7 @@ const readFuture = future(fs.readFile)
 const writeFuture = future(fs.writeFile)
 
 // setup the task
-const app1 = () =>
+const app1 = _ =>
   readFuture('config.json', 'utf-8')
     .map( contents => contents.replace(/8/g, '6') )
     .chain( contents => writeFuture('config2.json', contents) )
