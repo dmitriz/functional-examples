@@ -32,7 +32,7 @@ Task.of(13)
   .fork( showErr, showSuc)
 
 
-const launchMissiles = () =>
+const launchMissiles = _ =>
   new Task( (rej, res) => {
     console.log("launch missile!")
     res("missile")
