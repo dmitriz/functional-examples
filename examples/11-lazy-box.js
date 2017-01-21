@@ -1,17 +1,15 @@
 // leaving old Box for comparison
-const Box = x => (
-  {
+const Box = x => ({
     map: f => Box(f(x)),
     fold: f => f(x),
-    inspect: () => `Box(${x})`
-  }
-)
+    inspect: _ => `Box(${x})`,
+})
 
-// wraps a function without executing its call
+// wraps a function returning value without executing its call
 const LazyBox = g => ({
 
   // compose with f from outside
-  map: f => LazyBox( () => f(g()) ),
+  map: f => LazyBox( _ => f(g()) ),
 
   // compose and evaluate
   fold: f => f(g())
