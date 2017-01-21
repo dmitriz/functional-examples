@@ -1,5 +1,13 @@
 const { Box } = require('../examples/lib')
 
+
+// httpGet('/user')
+//   .chain(user => httpGet(`/comments/${user.id}`)
+
+//     // chain inside to access both user and comments in the closure
+//     .chain(comments => updateDom(user, comments))
+//   )
+
 // uwrapping Box,
 // i.e. takes Box(x) and returns x
 const join = m =>
