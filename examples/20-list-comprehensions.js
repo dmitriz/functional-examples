@@ -6,7 +6,7 @@ const res = List.of( x => x )
 console.log(res)
 
 
-const merch = () =>
+const merch = _ =>
   List.of( x => y => `${x}-${y}`)
 
   // partially apply to list of values 'x'
