@@ -28,7 +28,7 @@ routes
   route => httpGet(route, {})
 )
 
-// run the (clone of) the Task 
+// run the (clone of) the Task
 .fork( console.error, console.log )
 // -> Map { "home": "/ result", "about": "/about-us result", "blog": "/blog result" }
 
@@ -43,9 +43,13 @@ Map({
 
   // now routes are arrays,
   // wrap them into List and traverse
-  routes => List(routes).traverse(
-    Task.of, route => httpGet(route, {})
-  )
+  // to return Task
+  routes =>
+
+    // need to wrap into 'List' providing 'traverse'
+    List(routes).traverse(
+      Task.of, route => httpGet(route, {})
+    )
 )
 .fork( console.error, console.log )
 
