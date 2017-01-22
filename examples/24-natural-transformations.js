@@ -3,6 +3,9 @@ const { Box, Either, Right, Left, fromNullable } = require('../examples/lib')
 const Task = require('data.task')
 
 
+
+
+
 const boxToEither = b =>
 
   // must go to Right
