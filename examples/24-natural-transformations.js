@@ -3,23 +3,38 @@ const { Box, Either, Right, Left, fromNullable } = require('../examples/lib')
 const Task = require('data.task')
 
 
+const eitherToTask = e =>
+  e.fold(Task.rejected, Task.of)
+
+eitherToTask(Right('nightingale'))
+.fork(
+  e => console.error('Error: ', e),
+  res => console.log('Result: ', res)
+)
+eitherToTask(Left('errrr'))
+.fork(
+  e => console.error('Error: ', e),
+  res => console.log('Result: ', res)
+)
 
 
-
+// naturally transform Box to Either
 const boxToEither = b =>
 
   // must go to Right
   // to follow the natural transformation law
   b.fold(Right)
 
+// first transform to Either, than map
 const res1 = boxToEither(Box(100))
   .map( x => x * 2 )
 
-// first map, then transform
+// or first map, then transform to Either
 const res2 = boxToEither(
   Box(100).map( x => x * 2 )
 )
 
+// results should be the same!
 console.log(res1, res2)
 
 
@@ -27,6 +42,7 @@ console.log(res1, res2)
 const boxToEitherBad = b =>
 
   // does not follow the natural transformation law
+  // because Left ignores mapped functions
   b.fold(Left)
 
 // first box, then map
@@ -42,7 +58,7 @@ const res22 = boxToEither(
 console.log(res21, res22)
 
 
-
+// transform List into Either
 const first = xs =>
   fromNullable(xs[0])
 
