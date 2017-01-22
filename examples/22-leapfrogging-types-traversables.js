@@ -6,7 +6,8 @@ const { List } = require('immutable-ext')
 // https://github.com/futurize/futurize
 const FutureTask = require('futurize').futurize(Task)
 
-// lazy task for readFile
+// (lazy) task to read file
+// FutureTask simply applies to the callback-based function inside
 const readFileTask = FutureTask(fs.readFile)
 
 // need to wrap into List that provides 'traverse'
@@ -16,6 +17,7 @@ files
 
   // we have list of files but want task of lists
   // 1st argument 'Task.of' lifts to Task - applicative functor
-  // 2nd argument 
+  //  (needed as type hint in case of failure or never running the function)
+  // 2nd argument is traversing function a -> f b
   .traverse( Task.of, fn => readFileTask(fn, 'utf-8') )
   .fork(console.error, console.log)
