@@ -6,12 +6,10 @@ const Task = require('data.task')
 
 
 
-const Iso = (to, from) =>
-({
+const Iso = (to, from) => ({
   to,
   from
 })
-
 
 const chars = Iso(
   s => s.split(''),
