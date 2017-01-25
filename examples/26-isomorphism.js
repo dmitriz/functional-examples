@@ -1,16 +1,14 @@
 const { Box, Either, Right, Left, fromNullable } = require('../examples/lib')
-
 const { List } = require('immutable-ext')
-
 const Task = require('data.task')
 
-
-
+// general isomorphism signature
 const Iso = (to, from) => ({
   to,
   from
 })
 
+// isomorphisms String <-> Array
 const chars = Iso(
   s => s.split(''),
   c => c.join('')
@@ -30,7 +28,10 @@ const truncate = str =>
     .concat('...')
   )
 
-console.log( truncate('hello world') )
+console.log(
+  'hello world truncated is:',
+  truncate('hello world')
+)
 
 
 // [a] ~ Either null a
@@ -39,7 +40,7 @@ const singleton = Iso(
 
   // Either into Array
   // 'fold' is used to extract value
-  e => e.fold( () => [], x => [x] ),
+  e => e.fold( _ => [], x => [x] ),
 
   // Array into Either
   ([x]) => x ? Right(x) : Left()
@@ -48,8 +49,10 @@ const singleton = Iso(
 // filtering Either type objects
 // transform to Array, filter, than back to Either
 const filterEither = (e, pred) =>
-  singleton.from(
-    singleton.to(e)
+  singleton
+  .from(
+    singleton
+    .to(e)
     .filter(pred)
   )
 
