@@ -1,3 +1,37 @@
+const fs = require('fs')
+
+// helper functions
+const Right = x => (
+  {
+    chain: f => f(x),
+    map: f => Right(f(x)),
+    fold: (f, g) => g(x),
+    inspect: () => `Right(${x})`
+  }
+)
+const Left = x => (
+  {
+    chain: f => Left(x),
+    map: f => Left(x),
+    fold: (f, g) => f(x),
+    inspect: () => `Left(${x})`
+  }
+)
+const fromNullable = x =>
+  x != null ? Right(x) : Left(null)
+const tryCatch = f => {
+  try {
+    return Right(f())
+  } catch (e) {
+    return Left(e)
+  }
+}
+
+
+// mocked functions
+const renderPage = user => `renderPage(${user})`
+const showLogin = () => `showLogin()`
+
 // imperative coding style
 const openSite = () => {
   if(currentUser) {
@@ -8,14 +42,22 @@ const openSite = () => {
 }
 
 // functional coding style
-const openSiteFn = () =>
+const openSiteFn = currentUser =>
 
   // Right if currentUser is defined, Left otherwise
   fromNullable(currentUser)
 
-    // Left values passed to the left function, Right values passed to the right
+    // Left values are passed to the left function, Right values are passed to the right
     .fold(showLogin, renderPage)
 
+// testing
+console.log(`openSiteFn() : `, openSiteFn())
+console.log(`openSiteFn('user') : `, openSiteFn('user'))
+
+
+// mocked functions
+const defaultPrefs = () => `defaultPrefs()`
+const loadPrefs = prefs => `loadPrefs(${prefs})`
 
 // imperative
 const getPrefs = user => {
@@ -33,6 +75,11 @@ const getPrefsFn = user =>
     // acts on Right values and ignores Left values
     .map(u => u.preferences)
     .fold(defaultPrefs, loadPrefs)
+
+// testing
+console.log(`getPrefsFn({}) : `, getPrefsFn({}))
+console.log(`getPrefsFn({premium: true, preferences: 'some_prefs'}) : `, getPrefsFn({premium: true, preferences: 'some_prefs'}))
+
 
 
 // imperative
@@ -59,6 +106,12 @@ const streetNameFn = user =>
     .map(st => st.name)
     .fold(er => 'no street', name => name)
 
+// testing
+console.log(`streetNameFn({}) : `, streetNameFn({}))
+console.log(`streetNameFn({address: '1'}) : `, streetNameFn({address: '1'}))
+console.log(`streetNameFn({address: {street: {name: 'some_street'}}) : `, streetNameFn({address: {street: {name: 'some_street'}}}))
+
+
 
 // imperative
 const concatUniq = (x, ys) => {
@@ -71,9 +124,17 @@ const concatUniqFn = (x, ys) =>
   fromNullable(ys.filter(y => y === x)[0])
     .fold(() => ys.concat(x), () => ys)
 
+// testing
+console.log(`concatUniqFn(1, [2,3]) : `, concatUniqFn(1, [2,3]))
+console.log(`concatUniqFn(2, [2,3]) : `, concatUniqFn(2, [2,3]))
+
+
+
+// mocked
+
 
 // imperative
-const wrapExamples = example => {
+const wrapExample = example => {
   if(example.previewPath) {
     try {
       example.preview = fs.readFileSync(example.previewPath)
@@ -85,13 +146,19 @@ const wrapExamples = example => {
 // functional
 const readFileFn = path => tryCatch(() => fs.readFileSync(path))
 
-const wrapExample = example =>
+// functional
+const wrapExampleFn = example =>
   fromNullable(example.previewPath)
-    .chain(readFile)
+    .chain(readFileFn)
     .fold(
       () => example,
       preview => Object.assign({}, example, {preview})
     )
+
+// testing
+console.log(`wrapExampleFn({previewPath: 'no_file.txt'}) : `, wrapExampleFn({previewPath: 'no_file.txt'}))
+console.log(`wrapExampleFn({previewPath: 'preview.txt'}) : `, wrapExampleFn({previewPath: 'preview.txt'}))
+
 
 
 // imperative
@@ -111,7 +178,10 @@ const parseDbUrlFn = cfg =>
   tryCatch(() => JSON.parse(cfg))
     .chain(c => fromNullable(c.url))
     .fold(
-      e => null,
-      u => u.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
+      e => `url is invalid`,
+      u => u.match(/postgresql:\/\/([^:]+):([^@]+)@([^:]+)/)
     )
 
+// testing
+console.log(parseDbUrlFn("{url: 'invalid'}"))
+console.log(parseDbUrlFn('{"url": "postgresql://user:secret@localhost"}'))
