@@ -11,7 +11,8 @@ const Box = x => (
     // so we can keep chaining
     map: f => Box(f(x)),
 
-    // fold functor map, applies f and returns the raw unwrapped value,
+    // not part of the functor spec
+    // applies f and returns the raw unwrapped value,
     // sends f:a->b into fold(f):Box(a)->b,
     // does not return any Box container, so can't be chained with map
     fold: f => f(x),
@@ -35,13 +36,13 @@ const nextCharForNumberString = str =>
 
 const result = nextCharForNumberString(' 64 ')
 
-console.log('nextCharForNumberString for 64 is: ', result) //=> a
+console.log(`console.log displays nextCharForNumberString('64') as: `, result)
 
 
 
 // ==== Experiments
 
-console.log(Box(22))
+console.log(`Box(22) is displayed as: `, Box(22))
 
 const inspectBox = x => (
   {
@@ -53,4 +54,4 @@ const inspectBox = x => (
   }
 )
 
-console.log(inspectBox(4)) //=> I am wrapping '4'
+console.log(`Custom inspect shows 'inspectBox(4)' as: `, inspectBox(4)) //=> I am wrapping '4'
