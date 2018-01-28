@@ -61,13 +61,19 @@ const getPort = fileName =>
       c => c.port
     )
 
-console.log(getPort()) //=> 3000
-console.log(getPort('con.json')) //=> 3000
-console.log(getPort('config.json')) //=> 8080
+// no file passed
+console.log(`getPort() : `, getPort()) //=> 3000
+
+// file not present
+console.log(`getPort('con.json') : `, getPort('con.json')) //=> 3000
+
+// file present
+console.log(`getPort('config.json') : `, getPort('config.json')) //=> 8080
 
 
 
-const getPortNew = fileName =>
+// protecting against further errors by wrapping into tryCatch
+const getPortSafe = fileName =>
   tryCatch(() => fs.readFileSync(fileName))
   .chain(c => tryCatch(() => JSON.parse(c)))
   .fold(
@@ -76,10 +82,9 @@ const getPortNew = fileName =>
   )
 
 
-console.log(getPortNew()) //=> 3000
-console.log(getPortNew('con.json')) //=> 3000
+console.log(`getPortSafe() : `, getPortSafe()) //=> 3000
+console.log(`getPortSafe('con.json') : `, getPortSafe('con.json')) //=> 3000
 
 // importing badly formatted file
-console.log(getPortNew('configBad.json')) //=> 3000
-console.log(getPort('config.json')) //=> 8080
-
+console.log(`getPortSafe('configBad.json') : `, getPortSafe('configBad.json')) //=> 3000
+console.log(`getPortSafe('config.json') : `, getPortSafe('config.json')) //=> 8080
