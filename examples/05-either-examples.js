@@ -1,4 +1,4 @@
-// imperative
+// imperative coding style
 const openSite = () => {
   if(currentUser) {
     return renderPage(currentUser)
@@ -7,8 +7,8 @@ const openSite = () => {
   }
 }
 
-// functional
-const openSite = () =>
+// functional coding style
+const openSiteFn = () =>
 
   // Right if currentUser is defined, Left otherwise
   fromNullable(currentUser)
@@ -27,7 +27,7 @@ const getPrefs = user => {
 }
 
 // functional
-const getPrefs = user =>
+const getPrefsFn = user =>
   (user.premium ? Right(user) : Left('not premium'))
 
     // acts on Right values and ignores Left values
@@ -50,7 +50,7 @@ const streetName = user => {
 }
 
 // functional
-const streetName = user =>
+const streetNameFn = user =>
   fromNullable(user.address)
 
     // chain expects function from raw value into the wrapped one
@@ -67,7 +67,7 @@ const concatUniq = (x, ys) => {
 }
 
 // functional
-const concatUniq = (x, ys) =>
+const concatUniqFn = (x, ys) =>
   fromNullable(ys.filter(y => y === x)[0])
     .fold(() => ys.concat(x), () => ys)
 
@@ -83,7 +83,7 @@ const wrapExamples = example => {
 }
 
 // functional
-const readFile = path => tryCatch(() => fs.readFileSync(path))
+const readFileFn = path => tryCatch(() => fs.readFileSync(path))
 
 const wrapExample = example =>
   fromNullable(example.previewPath)
@@ -95,18 +95,19 @@ const wrapExample = example =>
 
 
 // imperative
-const parseDbUrl = cfg =>
+const parseDbUrl = cfg => {
   try {
     const c = JSON.parse(cfg)
     if(c.url) {
       return c.url.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
-    } catch (e) {
-      return null
     }
+  } catch (e) {
+      return null
   }
+}
 
 // functional
-const parseDbUrl = cfg =>
+const parseDbUrlFn = cfg =>
   tryCatch(() => JSON.parse(cfg))
     .chain(c => fromNullable(c.url))
     .fold(
