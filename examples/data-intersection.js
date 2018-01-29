@@ -110,8 +110,7 @@ console.log("Try to run with args: oasis blur")
 
 const artistIntersection1 = rels =>
 
-  // Task list is mapped through Intersection
-  // and folded
+  // Task list is mapped through Intersection and folded
   rels.foldMap(Intersection).xs
 
 
@@ -126,5 +125,4 @@ const main1 = names =>
 names
 .chain(main1)
 .fork(console.error, console.log)
-
 
