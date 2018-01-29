@@ -7,10 +7,10 @@ const formTask = val =>
   Task.of(val)
     .fork( showErr, showSuc  )
 
+console.log(`formTask(44) : `)
 formTask(44)
-formTask(null)
 
-
+console.log(`Task.rejected(81).map( x => x + 1 ).fork( showErr, showSuc) : `)
 Task.rejected(81)
 
   // will be ignored as task already rejected
@@ -19,6 +19,7 @@ Task.rejected(81)
 
 
 // wraps plain value into a task
+console.log(`Task.of(13).map( x => x + 1 ).chain( x => Task.of(x+1) ).fork( showErr, showSuc) : `)
 Task.of(13)
 
   // use plain functions inside 'map'
@@ -38,8 +39,13 @@ const launchMissiles = _ =>
     res("missile")
   })
 
+console.log(`launchMissiles().fork( showErr, showSuc)`)
+launchMissiles().fork( showErr, showSuc)
+
+console.log(`launchMissiles().map( x => x + "...FIRE" ).fork( showErr, showSuc)`)
+
 launchMissiles()
-  .map( x => x + "!" )
+  .map( x => x + "...FIRE" )
 
   // only this will actually perform the task
   .fork( showErr, showSuc)
