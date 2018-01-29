@@ -13,6 +13,10 @@ const readFileTask = FutureTask(fs.readFile)
 // need to wrap into List that provides 'traverse'
 const files = List(['config.json', 'config1.json'])
 
+console.log(
+  `List(['config.json', 'config1.json']).traverse(Task.of, fn => readFileTask(fn, 'utf-8')).fork(..., ...) : `
+)
+
 files
 
   // we have list of files but want task of lists
