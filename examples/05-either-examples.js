@@ -178,10 +178,16 @@ const parseDbUrlFn = cfg =>
   tryCatch(() => JSON.parse(cfg))
     .chain(c => fromNullable(c.url))
     .fold(
-      e => `url is invalid`,
+      e => `config is invalid`,
       u => u.match(/postgresql:\/\/([^:]+):([^@]+)@([^:]+)/)
     )
 
 // testing
-console.log(parseDbUrlFn("{url: 'invalid'}"))
-console.log(parseDbUrlFn('{"url": "postgresql://user:secret@localhost"}'))
+console.log(
+  `parseDbUrlFn('{"no_url": "invalid"}') : `,
+  parseDbUrlFn('{"no_url": "invalid"}')
+)
+console.log(
+  `parseDbUrlFn('{"url": "postgresql://user:secret@localhost"}') : `,
+  parseDbUrlFn('{"url": "postgresql://user:secret@localhost"}')
+)
