@@ -1,4 +1,17 @@
-const { Box } = require('../examples/lib')
+const Box = x => (
+  {
+    // b2 must be a boxed function Box(f)
+    ap: b2 => b2.map(x),
+
+    // f must be from any type a to any type b
+    map: f => Box(f(x)),
+
+    // f must be from any type a into the boxed type Box(a)
+    chain: f => f(x),
+    fold: f => f(x),
+    inspect: () => `Box(${x})`
+  }
+)
 
 
 // httpGet('/user')
@@ -16,15 +29,21 @@ const join = m =>
 
 const m = Box(Box(Box(3)))
 
-console.log('m is: ', m)
-console.log('join(m) is: ', join(m))
-console.log('join(join(m)) is: ', join(join(m)))
-console.log('join(join(join(m))) is: ', join(join(join(m))))
+console.log('join(Box(Box(Box(3)))) : ', join(m))
+console.log('join(join(Box(Box(Box(3)))) : ', join(join(m)))
+console.log('join(join(join(Box(Box(Box(3))))) : ', join(join(join(m))))
 
 const res1 = join(m.map(join))
 const res2 = join(join(m))
 
-console.log(res1, res2)
+console.log(
+  `join(Box(Box(Box(3))).map(join)) : `,
+  res1
+)
+console.log(
+  `join(join(Box(Box(Box(3))) : `,
+  res2
+)
 
 
 const m1 = Box('wonder')
@@ -32,4 +51,11 @@ const m1 = Box('wonder')
 const res21 = join(Box(m1))
 const res22 = join(m1.map(Box))
 
-console.log(res21, res22)
+console.log(
+  `join(Box(Box('wonder'))) : `,
+  res21
+)
+console.log(
+  `join(Box('wonder').map(Box)) : `,
+  res22
+)
