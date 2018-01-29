@@ -17,9 +17,12 @@ const showSuc = x => console.log('success: ', x)
 // general purpose Task for reading file
 const readFile = (fileName, encoding) =>
   new Task((rej, res) =>
-    fs.readFile(fileName, encoding, (err, contents) =>
-      err ? rej(err) : res(contents)
-  ))
+    fs.readFile(
+      fileName,
+      encoding,
+      (err, contents) => err ? rej(err) : res(contents)
+    )
+  )
 
 const readFileFl = (fileName, encoding) =>
   Fluture.node(done => fs.readFile(fileName, encoding, done))
@@ -28,13 +31,16 @@ const readFileFl = (fileName, encoding) =>
 // general purpose Task for writing file
 const writeFile = (fileName, contents) =>
   new Task((rej, res) =>
-    fs.writeFile(fileName, contents, (err, success) =>
-      err ? rej(err) : res(success)
-  ))
-
+    fs.writeFile(
+      fileName,
+      contents,
+      (err, success) => err ? rej(err) : res(success)
+    )
+  )
 
 const writeFileFl = (fileName, contents) =>
   Fluture.node(done => fs.writeFile(fileName, contents, done))
+
 
 
 const app =
@@ -50,8 +56,12 @@ const app =
   .chain( contents => writeFile('config1.json', contents) )
 
 
+console.log(
+  `readFile('config.json', 'utf-8').map(contents => contents.replace(/8/g, '6')).chain(contents => writeFile('config1.json', contents)).fork(..., ...) : `
+)
+
 // only now launch the task
-app.fork( showErr, _ => showSuc("Check 'config1.json'!") )
+app.fork( showErr, _ => showSuc("Written to 'config1.json'!") )
 
 
 
@@ -61,8 +71,12 @@ const appFl = readFileFl('config.json', 'utf-8')
   .map( contents => contents.replace(/8/g, '7') )
   .chain( contents => writeFileFl('config1-fl.json', contents))
 
+console.log(
+  `readFileFl('config.json', 'utf-8').map( contents => contents.replace(/8/g, '7')).chain( contents => writeFileFl('config1-fl.json', contents)).fork(..., ...)`
+)
+
 // now call it
-appFl.fork( showErr, _ => showSuc("Check 'config1-fl.json'!"))
+appFl.fork( showErr, _ => showSuc("Written to 'config1-fl.json'!"))
 
 
 
@@ -81,7 +95,9 @@ const app1 = readFuture('config.json', 'utf-8')
     .map( contents => contents.replace(/8/g, '6') )
     .chain( contents => writeFuture('config2.json', contents) )
 
+console.log(
+  `readFuture('config.json', 'utf-8').map(contents => contents.replace(/8/g, '6')).chain(contents => writeFuture('config2.json', contents)).fork(..., ...)`
+)
+
 // run the task
-app1.fork( showErr, _ => showSuc("Check 'config2.json'!") )
-
-
+app1.fork( showErr, _ => showSuc("Written to 'config2.json'!") )
