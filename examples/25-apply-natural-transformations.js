@@ -7,9 +7,12 @@ const Task = require('data.task')
 // 'chain' does not exist on the array,
 // so we apply natural transformation into the List first
 const res = List(['hello', 'world'])
-.chain( x => List(x.split('')) )
+  .chain( x => List(x.split('')) )
 
-console.log(res)
+console.log(
+  `List(['hello', 'world']).chain( x => List(x.split('')) ) : `,
+  res
+)
 
 
 // natural tranformation from array to Either
@@ -33,7 +36,10 @@ const app = xs =>
     .map(larger)
   )
 
-console.log(app([2, 400, 5, 1000]))
+console.log(
+  `app([2, 400, 5, 1000]) : `,
+  app([2, 400, 5, 1000])
+)
 
 const app1 = xs =>
 
@@ -43,7 +49,10 @@ const app1 = xs =>
   )
   .map(larger)
 
-console.log(app1([2, 400, 5, 1000]))
+console.log(
+  `app1([2, 400, 5, 1000]) : `,
+  app1([2, 400, 5, 1000])
+)
 
 
 // fake user returned by id for testing purposes
@@ -68,6 +77,13 @@ const eitherToTask = e =>
 
 // valid user (id > 2)
 // -> Task returns Either
+console.log(`Db.find(3).chain(eitherToTask).fork(..., ...) : `)
+Db.find(3)
+  .chain(eitherToTask)
+  .fork(console.error, console.log)
+
+console.log(`Db.find(3).chain(eitherToTask).chain(user => Db.find(user.best_friend_id)).chain(eitherToTask).fork(..., ...) : `)
+
 Db.find(3)
 
 // Task result is 'Either' but we want to chain with plain function,
@@ -84,6 +100,8 @@ Db.find(3)
 .chain(eitherToTask)
 .fork(console.error, console.log)
 
+
+console.log(`Db.find(2).chain(eitherToTask).chain(user => Db.find(user.best_friend_id)).chain(eitherToTask).fork(..., ...) : `)
 
 // invalid user (id = 2)
 Db.find(2)
