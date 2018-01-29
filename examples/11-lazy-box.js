@@ -8,7 +8,7 @@ const Box = x => ({
 // wraps a function returning value without executing its call
 const LazyBox = g => ({
 
-  // compose with f from outside
+  // returns function but not evaluate it
   map: f => LazyBox( _ => f(g()) ),
 
   // compose and evaluate only here!
@@ -18,11 +18,10 @@ const LazyBox = g => ({
 
 const nextCharForNumberString = str =>
 
-  // wrap 'str' first into function call
+  // pass 'str' wrapped into function rather than directly
   LazyBox( _ => str )
 
-  // every 'map' composes with new function from outside
-  // without calling it
+  // every 'map' composes with new function from outside without calling it
   .map(s => s.trim())
   .map(r => parseInt(r))
   .map(i => i + 1)
@@ -32,7 +31,22 @@ const nextCharForNumberString = str =>
   .fold(s => s.toLowerCase())
 
 console.log(
-  "nextCharForNumberString(' 64 '): ",
+  `LazyBox(_ => ' 64 ').fold(s => s) : `,
+  LazyBox(_ => ' 64 ').fold(s => s)
+)
+
+console.log(
+  `LazyBox(_ => '       64       ').map(s => s.trim()).fold(s => s) : `,
+  LazyBox(_ =>  '       64       ').map(s => s.trim()).fold(s => s)
+)
+
+console.log(
+  `LazyBox(_ => '       64       ').map(s => s.trim()).map(r => parseInt(r)).map(i => i + 1).fold(s => s) : `,
+  LazyBox(_ =>  '       64       ').map(s => s.trim()).map(r => parseInt(r)).map(i => i + 1).fold(s => s)
+)
+
+console.log(
+  "nextCharForNumberString(' 64 ') : ",
   nextCharForNumberString(' 64 ')
 )
 
