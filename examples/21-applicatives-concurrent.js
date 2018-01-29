@@ -19,6 +19,10 @@ const reportHeader = (p1, p2) =>
   `Report: ${p1.title} compared to ${p2.title}`
 
 
+console.log(
+  `Task.of(p1 => p2 => reportHeader(p1, p2)).ap(Db.find(20)).ap(Db.find(8)).fork(..., ...) : `
+)
+
 // curried Task to be applied twice
 // plain function inside!
 Task.of( p1 => p2 => reportHeader(p1, p2) )
