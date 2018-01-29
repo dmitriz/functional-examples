@@ -1,20 +1,38 @@
 // https://github.com/DrBoolean/immutable-ext
 // Map extends 'concat' method to components:
 // https://github.com/DrBoolean/immutable-ext/blob/master/browser_dist/index.js#L51
-const {Map} = require('immutable-ext')
+const { Map, List } = require('immutable-ext')
+
+// helper functions
+const Right = x => (
+  {
+    chain: f => f(x),
+    map: f => Right(f(x)),
+    fold: (f, g) => g(x),
+    inspect: () => `Right(${x})`
+  }
+)
+const Left = x => (
+  {
+    chain: f => Left(x),
+    map: f => Left(x),
+    fold: (f, g) => f(x),
+    inspect: () => `Left(${x})`
+  }
+)
 
 
 // Sum container adds semigroup structure
 // via the 'concat' method
 const Sum = x => ({
 
-  //  make x accessible via 'x' prop
+  //  make x accessible via the 'x' prop
   x,
 
   // destructuring value for the key 'x'
   // equivalent to y = argument.x
   // Usage: Sum(n).concat(Sum(m)) //=> Sum(n+m)
-  concat: ({x: y}) => Sum(x + y),
+  concat: ({x: val}) => Sum(x + val),
 
   // custom getter used by console.log
   inspect: _ => `Sum(${x})`
@@ -29,7 +47,7 @@ console.log(
 // All container add logical (boolean) 'concat'
 const All = x => ({
   x,
-  concat: ({x: y}) => All(x && y),
+  concat: ({x: val}) => All(x && val),
 
   // custom getter used by console.log
   inspect: _ => `All(${x})`
@@ -38,6 +56,11 @@ const All = x => ({
 console.log(
   'All(true).concat(All(false)): ',
   All(true).concat(All(false))
+)
+
+console.log(
+  'All(true).concat(All(true)): ',
+  All(true).concat(All(true))
 )
 
 
@@ -53,6 +76,13 @@ const First = x => ({
 })
 
 
+console.log(
+  `First('I am the first').concat(First('I am the second')) : `,
+  First('I am the first').concat(First('I am the second'))
+)
+
+
+// use Map to combine the 'concats' for different types
 const acct1 = Map({
   name: First('Nice guy'),
   isPaid: All(true),
@@ -72,23 +102,25 @@ const acct2 = Map({
 // individual custom 'concat' applies in each component
 const res = acct1.concat(acct2)
 
-console.log(res.toJS())
+// testing
+console.log(
+  `acct1.concat(acct2) : `,
+  res.toJS()
+)
 
 
 
-// from the comments to video
-// x must be an Either
-const FirstEither = x => ({
-  fold: f => x.fold(f, f),
-  concat: o => x.isLeft ? o : First(x)
-})
-
-
-const find = (xs, f) => List(xs)
-  .foldMap(
-    x => FirstEither(f(x) ? Right(x) : Left()),
-    First.empty
-  )
-  .fold(x => x)
-
-
+// List from 'immutable-ext' implements 'foldMap(f, empty)'
+// which runs 'reduce' over the 'concat' of the target type of 'f'
+console.log(
+  `List([1,2,3]).foldMap(x => [x, 10]) : `,
+  List([1,2,3]).foldMap(x => [x, 10])
+)
+console.log(
+  `List([]).foldMap(x => [x, 10], []) : `,
+  List([]).foldMap(x => [x, 10], [])
+)
+console.log(
+  `List([1,2,3]).foldMap(x => First(x)) : `,
+  List([1,2,3]).foldMap(x => First(x))
+)
