@@ -7,7 +7,7 @@ see also <a href="https://www.reddit.com/r/javascript/comments/5hfq6n/100_minute
 
 See also the wonderful e-book <a href="https://drboolean.gitbooks.io/mostly-adequate-guide/content/">
 Professor Frisby's Mostly Adequate Guide to Functional Programming</a>
-by the same author.
+by the same author (See also https://github.com/MostlyAdequate/mostly-adequate-guide for the updates).
 
 
 ## What makes Prof. Frisby's course and book awesome?
