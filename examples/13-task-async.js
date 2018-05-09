@@ -2,7 +2,6 @@
 // part of Folktale https://github.com/origamitower/folktale
 const Task = require('data.task')
 
-// for comparison use
 // https://github.com/Avaq/Fluture
 const Fluture = require('fluture')
 
@@ -26,7 +25,6 @@ const readFileTask = (fileName, encoding) =>
 
 const readFileFluture = (fileName, encoding) =>
   Fluture.node(done => fs.readFile(fileName, encoding, done))
-
 
 // general purpose Task for writing file
 const writeFileTask = (fileName, contents) =>
