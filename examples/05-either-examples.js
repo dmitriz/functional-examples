@@ -109,7 +109,10 @@ const streetNameFn = user =>
 // testing
 console.log(`streetNameFn({}) : `, streetNameFn({}))
 console.log(`streetNameFn({address: '1'}) : `, streetNameFn({address: '1'}))
-console.log(`streetNameFn({address: {street: {name: 'some_street'}}) : `, streetNameFn({address: {street: {name: 'some_street'}}}))
+console.log(
+  `streetNameFn({address: {street: {name: 'some_street'}}) : `, 
+  streetNameFn({address: {street: {name: 'some_street'}}})
+)
 
 
 
