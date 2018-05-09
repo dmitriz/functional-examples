@@ -24,13 +24,14 @@
   },
   "homepage": "https://github.com/dmitriz/dr-frisbe-course#readme",
   "dependencies": {
+    "creed": "^1.4.0",
     "data.either": "^1.4.0",
     "data.task": "^3.1.1",
     "fantasy-identities": "0.0.1",
-    "fluture": "^4.3.0",
-    "futurize": "^1.0.2",
-    "immutable": "^3.8.1",
-    "immutable-ext": "^1.0.6",
+    "fluture": "^4.3.5",
+    "futurize": "^1.2.0",
+    "immutable": "^3.8.2",
+    "immutable-ext": "^1.1.5",
     "request": "^2.79.0"
   }
 }

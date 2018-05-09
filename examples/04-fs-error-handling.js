@@ -51,7 +51,7 @@ const getPort = fileName =>
 
   // this will not "explode" if fileName is not found!
   tryCatch( () => fs.readFileSync(fileName) )
-    .map(c => JSON.parse(c))
+    .map( c => JSON.parse(c) )
 
     // .map(c => tryCatch(() => JSON.parse(c)))
     .fold(
@@ -74,8 +74,8 @@ console.log(`getPort('config.json') : `, getPort('config.json')) //=> 8080
 
 // protecting against further errors by wrapping into tryCatch
 const getPortSafe = fileName =>
-  tryCatch(() => fs.readFileSync(fileName))
-  .chain(c => tryCatch(() => JSON.parse(c)))
+  tryCatch( () => fs.readFileSync(fileName) )
+  .chain( c => tryCatch(() => JSON.parse(c)) )
   .fold(
     e => 3000,
     c => c.port

@@ -123,5 +123,8 @@ const badColorNew = findColorFromNullable('gray')
     c => c.toUpperCase()
   )
 
-console.log(`findColorFromNullable('gray') transformed and fold with (e => 'no color', c => c.toUpperCase()) is: `, badColorNew) //=> no color
+console.log(
+  `findColorFromNullable('gray') transformed and fold with (e => 'no color', c => c.toUpperCase()) is: `, 
+  badColorNew
+) //=> no color
 

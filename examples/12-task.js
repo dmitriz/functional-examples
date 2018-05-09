@@ -4,8 +4,8 @@ const showErr = e => console.log('err :', e)
 const showSuc = x => console.log('success: ', x)
 
 const formTask = val =>
-  Task.of(val)
-    .fork( showErr, showSuc  )
+  Task.of( val )
+    .fork( showErr, showSuc )
 
 console.log(`formTask(44) : `)
 formTask(44)

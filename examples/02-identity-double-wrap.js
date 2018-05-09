@@ -63,6 +63,8 @@ const applyDiscount = (price, discount) =>
 // without fold, result is wrapped into Box twice
 const applyDiscountInBox = (price, discount) =>
   moneyToFloat(price).map(cost =>
+
+    // nesting so cost remains in scope
     percentToFloat(discount).map(savings =>
       cost - cost * savings
     )
@@ -76,5 +78,8 @@ const result = applyDiscount('$55', '20%')
 
 console.log(`applyDiscount('$55', '20%') : `, result) //=> 44
 
-console.log(`applyDiscountInBox('$55', '20%') : `, applyDiscountInBox('$55', '20%')) //=> Box(Box(44))
+console.log(
+  `applyDiscountInBox('$55', '20%') : `, 
+  applyDiscountInBox('$55', '20%')
+) //=> Box(Box(44))
 
