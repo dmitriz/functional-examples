@@ -67,7 +67,7 @@ app.fork( showErr, _ => showSuc("Written to 'config1.json'!") )
 
 // optionally using Fluture
 // define the application
-const appFl = readFileFluture('config.json', 'utf-8')
+const appFluture = readFileFluture('config.json', 'utf-8')
   .map( contents => contents.replace(/8/g, '7') )
   .chain( contents => writeFileFluture('config1-fl.json', contents))
 
@@ -76,7 +76,7 @@ console.log(
 )
 
 // now call it
-appFl.fork( showErr, _ => showSuc("Written to 'config1-fl.json'!"))
+appFluture.fork( showErr, _ => showSuc("Written to 'config1-fl.json'!"))
 
 
 
