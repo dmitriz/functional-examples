@@ -33,18 +33,18 @@ Task.of(13)
   .fork( showErr, showSuc)
 
 
-const launchMissiles = _ =>
+const launchMissilesTask = _ =>
   new Task( (rej, res) => {
-    console.log("launch missile!")
+    console.log("launch missile from Task!")
     res("missile")
   })
 
-console.log(`launchMissiles().fork( showErr, showSuc)`)
-launchMissiles().fork( showErr, showSuc)
+console.log(`launchMissilesTask().fork( showErr, showSuc)`)
+launchMissilesTask().fork( showErr, showSuc)
 
-console.log(`launchMissiles().map( x => x + "...FIRE" ).fork( showErr, showSuc)`)
+console.log(`launchMissilesTask().map( x => x + "...FIRE" ).fork( showErr, showSuc)`)
 
-launchMissiles()
+launchMissilesTask()
   .map( x => x + "...FIRE" )
 
   // only this will actually perform the task
