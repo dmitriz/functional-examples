@@ -8,8 +8,9 @@ const eitherToTask = e =>
   e.fold(Task.rejected, Task.of)
 
 
-console.log(
-  `eitherToTask(Right('nightingale')).fork(..., ...) : `
+console.log(`
+  eitherToTask(Right('nightingale'))
+    .fork(..., ...) : `
 )
 eitherToTask(Right('nightingale'))
 .fork(
@@ -17,8 +18,9 @@ eitherToTask(Right('nightingale'))
   res => console.log('Result: ', res)
 )
 
-console.log(
-  `eitherToTask(Left('errrr')).fork(..., ...) : `
+console.log(`
+  eitherToTask(Left('errrr'))
+  .fork(..., ...) : `
 )
 eitherToTask(Left('errrr'))
 .fork(
@@ -44,12 +46,16 @@ const res2 = boxToEither(
 )
 
 // results should be the same!
-console.log(
-  `boxToEither(Box(100)).map( x => x * 2 ) : `,
+console.log(`
+  boxToEither(Box(100))
+    .map( x => x * 2 ) : 
+  `,
   res1
 )
-console.log(
-  `boxToEither(Box(100).map( x => x * 2 )) : `,
+console.log(`
+  boxToEither(Box(100)
+    .map( x => x * 2 )) : 
+  `,
   res2
 )
 
@@ -72,12 +78,14 @@ const res22 = boxToEitherBad(
 )
 
 // natural transformation law is violated!
-console.log(
-  `boxToEitherBad(Box(100)).map( x => x * 2 ) : `,
+console.log(`
+  boxToEitherBad(Box(100))
+    .map( x => x * 2 ) : `,
   res21
 )
-console.log(
-  `boxToEitherBad(Box(100).map( x => x * 2 )) : `,
+console.log(`
+  boxToEitherBad(Box(100)
+    .map( x => x * 2 )) : `,
   res22
 )
 
@@ -93,12 +101,14 @@ const res31 = first([1,2,3]).map( x => x + 1 )
 const res32 = first( [1,2,3].map( x => x + 1 ) )
 
 // results are equal!
-console.log(
-  `first([1,2,3]).map( x => x + 1 ) : `,
+console.log(`
+  first([1,2,3])
+    .map( x => x + 1 ) : `,
   res31
 )
-console.log(
-  `first([1,2,3].map( x => x + 1 ))`,
+console.log(`
+  first([1,2,3]
+    .map( x => x + 1 )) :`,
   res32
 )
 
