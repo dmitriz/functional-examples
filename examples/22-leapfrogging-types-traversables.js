@@ -9,7 +9,7 @@ const { List } = require('immutable-ext')
 const FutureTask = require('futurize').futurize(Task)
 
 // (lazy) task to read file
-// FutureTask simply applies to the callback-based function inside
+// FutureTask wraps the callback-based function inside into Task
 const readFileTask = FutureTask(fs.readFile)
 
 // need to wrap into List that provides 'traverse'
@@ -25,7 +25,7 @@ console.log(
 	'files' is List of files 'List(a)'
 	'map' preserves the List wrapper, so we can get List of Tasks 'List(Task(a))'
 	'traverse' applies the function (a -> f b) to each List entry,
-		and wraps all together into single Task of Lists,
+		then lifts the List to Task of Lists via Task's 'ap' operator
 		running the tasks in parallel
 */
 

@@ -1,3 +1,4 @@
+// https://github.com/briancavalier/creed
 const { Promise: CreedPromise } = require('creed')
 
 const launchMissilesCreed = _ =>
