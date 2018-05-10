@@ -1,5 +1,7 @@
+// Native
 const fs = require('fs')
 
+// Packages
 const Task = require('data.task')
 const { List } = require('immutable-ext')
 
@@ -14,14 +16,25 @@ const readFileTask = FutureTask(fs.readFile)
 const files = List(['config.json', 'config1.json'])
 
 console.log(
-  `List(['config.json', 'config1.json']).traverse(Task.of, fn => readFileTask(fn, 'utf-8')).fork(..., ...) : `
+  `List(['config.json', 'config1.json'])
+  	.traverse(Task.of, fn => readFileTask(fn, 'utf-8'))
+  	.fork(..., ...) : `
 )
 
-files
+/*
+	'files' is List of files 'List(a)'
+	'map' preserves the List wrapper, so we can get List of Tasks 'List(Task(a))'
+	'traverse' applies the function (a -> f b) to each List entry,
+		and wraps all together into single Task of Lists,
+		running the tasks in parallel
+*/
 
-  // we have list of files but want task of lists
-  // 1st argument 'Task.of' lifts to Task - applicative functor
-  //  (needed as type hint in case of failure or never running the function)
-  // 2nd argument is traversing function a -> f b
-  .traverse( Task.of, fn => readFileTask(fn, 'utf-8') )
+files
+  .traverse(
+  	// type hint, applicative functor
+  	// needed in case of failure or never running the function
+  	Task.of, 
+  	// traversing function a -> f b
+  	fn => readFileTask(fn, 'utf-8') 
+  )
   .fork(console.error, console.log)

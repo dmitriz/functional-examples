@@ -21,12 +21,12 @@ launchMissilesPromise()
   .then( console.log )
 
 
+const suspendedMissile = name => ({
+  first: _ => console.log(`${name} missile is ready...`),
+  then: _ => console.log(`${name} missile is launched!!!`)
+})
 
-const suspendedLaunchCreed = _ =>
-   // return suspended missile inside function,
-  CreedPromise.of({then: _ => {
-    console.log("Creed missile is launched!!!")
-  }})
+const suspendedLaunchCreed = CreedPromise.of(suspendedMissile('Creed'))
 
 const suspendedLaunchPromise = _ =>
    // return suspended missile inside function,
@@ -34,7 +34,7 @@ const suspendedLaunchPromise = _ =>
     console.log("Promise missile is launched!!!")
   }})
 
-suspendedLaunchCreed()
+suspendedLaunchCreed
   // execute instruction
   .then(instruction => instruction.then())
 
