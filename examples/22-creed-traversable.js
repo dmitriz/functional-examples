@@ -42,4 +42,4 @@ files
   	// traversing function a -> f b
   	file => readFilePromise(file)
   )
-	.then( console.log, console.error )
+  .then( console.log, console.error )
