@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "daggy": "0.0.1",
+    "daggy": "1.4.0",
     "futurize": "1.2.0"
   }
 }
