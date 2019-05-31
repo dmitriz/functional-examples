@@ -1,4 +1,7 @@
 # functional-examples
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/dmitriz/functional-examples.svg)](https://greenkeeper.io/)
+
 Examples with Functional JavaScript
 
 Heavily annotated examples from the awesome videos
