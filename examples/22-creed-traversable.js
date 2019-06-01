@@ -34,10 +34,9 @@ console.log(
 
 files
   .traverse(
-
     // type hint, applicative functor
     // needed in case of failure or never running the function
-    CreedPromise.of, 
+    CreedPromise.of,
 
     // traversing function a -> f b
     file => readFilePromise(file)
