@@ -1,5 +1,10 @@
 # functional-examples
 
+## [New functional library `cpsfy`](https://github.com/dmitriz/cpsfy)
+
+UPDATE. Check out my new advanced functional library: 
+https://github.com/dmitriz/cpsfy
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/dmitriz/functional-examples.svg)](https://greenkeeper.io/)
 
 Examples with Functional JavaScript
