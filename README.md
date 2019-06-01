@@ -19,7 +19,6 @@ by the same author (See also https://github.com/MostlyAdequate/mostly-adequate-g
 
 
 ## What makes Prof. Frisby's course and book awesome?
-
 Both course and book amazingly manage to avoid suffering from the two widespread diseases when explaining abstract functional concepts: 
 
 - The first disease is to stay with abstract artifically simplified examples that can be easily manipulated 
@@ -37,7 +36,6 @@ demonstrating real benefits of the functional abstractions with sharp focus and 
 
 
 ## Running Examples
-
 Install the packages with either of
 ```js
 yarn install
@@ -50,5 +48,4 @@ node <file.js>
 
 
 ## Related Projects
-
 - [Monadic Libraries Examples with Tests](https://github.com/dmitriz/monadic-libraries-examples)

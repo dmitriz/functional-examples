@@ -33,22 +33,22 @@ console.log("Set([1, 1, 2, 3, 3, 4]) : ", set)
 
 
 // Wrap set into Coyoneda with 'id' function
-const coyo_result = Coyoneda.lift(set)
+const coyoResult = Coyoneda.lift(set)
   .map(x => x + 1)
   .map(x => `${x}!`)
 
 console.log(
   "Coyoneda.lift(set).map(x => x + 1).map(x => `${x}!`): ",
-  coyo_result
+  coyoResult
 )
 
 
-// equivalent to buildUpFn = coyo_result.f, our_set = coyo_result.x
-const {f: builtUpFn, x: our_set} = coyo_result
+// equivalent to buildUpFn = coyoResult.f, ourSet = coyoResult.x
+const {f: builtUpFn, x: ourSet} = coyoResult
 
-console.log("builtUpFn is: ", builtUpFn, "; our_set is: ", our_set)
+console.log("builtUpFn is: ", builtUpFn, "; ourSet is: ", ourSet)
 
-our_set
+ourSet
   .forEach(n => console.log(builtUpFn(n)))
 // 2!
 // 3!
