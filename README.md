@@ -1,13 +1,15 @@
 # functional-examples
 
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/dmitriz/functional-examples.svg)](https://greenkeeper.io/)
+[![Stargazers over time](https://starcharts.herokuapp.com/dmitriz/functional-examples.svg)](https://starcharts.herokuapp.com/dmitriz/functional-examples)
+
 ## [New functional library `cpsfy`](https://github.com/dmitriz/cpsfy)
 
 UPDATE. Check out my new advanced functional library: 
 https://github.com/dmitriz/cpsfy
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dmitriz/functional-examples.svg)](https://greenkeeper.io/)
-
-Examples with Functional JavaScript
+# Examples with Functional JavaScript
 
 Heavily annotated examples from the awesome videos
 <a href="https://egghead.io/lessons/javascript-refactoring-imperative-code-to-a-single-composed-expression-using-box">Professor Frisby Introduces Composable Functional JavaScript</a>,
