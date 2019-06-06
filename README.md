@@ -1,4 +1,4 @@
-# functional-examples
+### functional-examples
 
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/dmitriz/functional-examples.svg)](https://greenkeeper.io/)
