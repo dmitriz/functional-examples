@@ -2,7 +2,7 @@
 
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/dmitriz/functional-examples.svg)](https://greenkeeper.io/)
-[![Stargazers over time](https://starcharts.herokuapp.com/dmitriz/functional-examples.svg)](https://starcharts.herokuapp.com/dmitriz/functional-examples)
+
 
 ## [New functional library `cpsfy`](https://github.com/dmitriz/cpsfy)
 
@@ -51,3 +51,8 @@ node <file.js>
 
 ## Related Projects
 - [Monadic Libraries Examples with Tests](https://github.com/dmitriz/monadic-libraries-examples)
+
+
+## Github stargazers over time
+
+[![Stargazers over time](https://starcharts.herokuapp.com/dmitriz/functional-examples.svg)](https://starcharts.herokuapp.com/dmitriz/functional-examples)
