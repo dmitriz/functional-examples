@@ -1,7 +1,7 @@
 ### functional-examples
 
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dmitriz/functional-examples.svg)](https://greenkeeper.io/)
+
 
 
 ## [New functional library `cpsfy`](https://github.com/dmitriz/cpsfy)
