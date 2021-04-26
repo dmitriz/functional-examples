@@ -29,7 +29,7 @@
     "data.either": "^1.4.0",
     "data.task": "^3.1.1",
     "fantasy-identities": "0.0.1",
-    "fluture": "^11.0.0",
+    "fluture": "^14.0.0",
     "futurize": "^1.2.0",
     "immutable": "^3.8.2",
     "immutable-ext": "^1.1.5",
