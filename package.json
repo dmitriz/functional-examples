@@ -31,7 +31,7 @@
     "fantasy-identities": "0.0.1",
     "fluture": "^11.0.0",
     "futurize": "^1.2.0",
-    "immutable": "^3.8.2",
+    "immutable": "^4.0.0",
     "immutable-ext": "^1.1.5",
     "request": "^2.79.0"
   }
