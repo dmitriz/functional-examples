@@ -51,8 +51,3 @@ node <file.js>
 
 ## Related Projects
 - [Monadic Libraries Examples with Tests](https://github.com/dmitriz/monadic-libraries-examples)
-
-
-## Github stargazers over time
-
-[![Stargazers over time](https://starcharts.herokuapp.com/dmitriz/functional-examples.svg)](https://starcharts.herokuapp.com/dmitriz/functional-examples)
