@@ -29,21 +29,26 @@ Coyoneda.lift = x => Coyoneda(x, id)
 // Set does not have a 'map' method
 const set = new Set([1, 1, 2, 3, 3, 4])
 
-console.log("Set is: ", set)
+console.log("Set([1, 1, 2, 3, 3, 4]) : ", set)
+
 
 // Wrap set into Coyoneda with 'id' function
-const coyo_result = Coyoneda.lift(set)
+const coyoResult = Coyoneda.lift(set)
   .map(x => x + 1)
   .map(x => `${x}!`)
 
-console.log("Mapped over Set is: ", coyo_result)
+console.log(
+  "Coyoneda.lift(set).map(x => x + 1).map(x => `${x}!`): ",
+  coyoResult
+)
 
-// equivalent to buildUpFn = coyo_result.f, our_set = coyo_result.x
-const {f: builtUpFn, x: our_set} = coyo_result
 
-console.log("builtUpFn is: ", builtUpFn, "; our_set is: ", our_set)
+// equivalent to buildUpFn = coyoResult.f, ourSet = coyoResult.x
+const {f: builtUpFn, x: ourSet} = coyoResult
 
-our_set
+console.log("builtUpFn is: ", builtUpFn, "; ourSet is: ", ourSet)
+
+ourSet
   .forEach(n => console.log(builtUpFn(n)))
 // 2!
 // 3!
@@ -52,11 +57,15 @@ our_set
 
 
 //===============Lift a functor in (Array) and achieve Loop fusion=========
-Coyoneda.lift([1,2,3])
-  .map(x => x * 2)
-  .map(x => x - 1)
-  .lower()
+console.log(
+  `Coyoneda.lift([1,2,3]).map(x => x * 2).map(x => x - 1).lower() : `,
+  Coyoneda.lift([1,2,3])
+    .map(x => x * 2)
+    .map(x => x - 1)
+    .lower()
+)
 // [ 1, 3, 5 ]
+
 
 
 //===============Make Any Type a Functor=========

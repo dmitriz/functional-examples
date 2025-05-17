@@ -5,12 +5,11 @@ const Sum = x => ({
   x,
 
   // destructuring value for the key 'x'
-  concat: ({x: y}) => Sum(x + y),
+  concat: ({x: val}) => Sum(x + val),
 
   // custom getter used by console.log
   inspect: _ => `Sum(${x})`
 })
-
 Sum.empty = _ => Sum(0)
 
 
@@ -22,7 +21,10 @@ const res = Sum
   .concat(Sum(1))
   .concat(Sum(44))
 
-console.log(res)
+console.log(
+  `Sum.empty().concat(Sum(1)).concat(Sum(44)) : `,
+  res
+)
 
 
 
@@ -34,7 +36,6 @@ const All = x => ({
   // custom getter used by console.log
   inspect: _ => `All(${x})`
 })
-
 All.empty = _ => All(true)
 
 
@@ -46,7 +47,10 @@ const resAll = All
   .concat(All(true))
   .concat(All.empty())
 
-console.log(resAll)
+console.log(
+  `All.empty().concat(All(true)).concat(All(true)).concat(All.empty()) : `,
+  resAll
+)
 
 
 
@@ -68,21 +72,21 @@ const Max = x => ({
   concat: ({x: y}) => Max(x > y ? x : y),
   inspect: _ => `Max(${x})`
 })
-
 Max.empty = _ => Max(-Infinity)
 
+// testing
 console.log(
-  'Max(4).concat(Max(5)): ',
+  'Max(4).concat(Max(5)) : ',
   Max(4).concat(Max(5))
 )
 
 console.log(
-  'Max(4).concat(Max(5)).concat(Max(7)): ',
+  'Max(4).concat(Max(5)).concat(Max(7)) : ',
   Max(4).concat(Max(5)).concat(Max(7))
 )
 
 console.log(
-  'Max.empty().concat(Max(4)).concat(Max(5)).concat(Max(7)): ',
+  'Max.empty().concat(Max(4)).concat(Max(5)).concat(Max(7)) : ',
   Max.empty().concat(Max(4)).concat(Max(5)).concat(Max(7))
 )
 
@@ -106,6 +110,7 @@ const Right = x => ({
     // use the concat for x
     res => Right(x.concat(res))
   ),
+  isLeft: false,
   inspect: _ => `Right(${x})`
 })
 
@@ -125,21 +130,21 @@ const Left = x => ({
     _ => Left(x),
     y => o
   ),
+  isLeft: true,
   inspect: _ => `Left(${x})`
 })
+
 
 const stats = List.of(
   {page: 'Home', views: 40},
   {page: 'About', views: 10},
   {page: 'Blog', views: 4}
 )
-const totalStats = stats.foldMap(x =>
-  fromNullable(x.views).map(Sum),
-  Right(Sum(0))
+const totalStats = stats.foldMap(
+  x => Sum(x.views),
+  Sum(0)
 )
-// Right(Sum(54))
-// console.log(totalStats)
-
+console.log(`totalStats : `, totalStats)
 
 
 
@@ -149,13 +154,18 @@ const FirstEither = either => ({
   concat: o => either.isLeft ? o : FirstEither(either),
   inspect: _ => `FirstEither(${either.inspect()})`
 })
-
 FirstEither.empty = _ => FirstEither(Left())
 
+// testing
 console.log(
-  FirstEither(Right(55)),
+  `FirstEither.empty().concat(FirstEither(Right(55))) : `,
   FirstEither.empty().concat(FirstEither(Right(55)))
 )
+console.log(
+  `FirstEither(Right(111)).concat(FirstEither(Right(55))) : `,
+  FirstEither(Right(111)).concat(FirstEither(Right(55)))
+)
+
 
 const find = (xs, f) => List(xs).foldMap(
   x => FirstEither(f(x) ? Right(x) : Left()),
@@ -163,10 +173,13 @@ const find = (xs, f) => List(xs).foldMap(
 )
 .fold(x => x)
 
+// testing
 console.log(
+  `find([3,4,5,6,7], x => x > 4) : `,
   find([3,4,5,6,7], x => x > 4)
 )
-// => Right(5) ???
+// => Right(5)
+
 
 
 const sum = xs =>
@@ -178,9 +191,9 @@ const all = xs =>
 const first = xs =>
   xs.reduce((acc, x) => acc)
 
-console.log(sum([1,3,4]))
-console.log(all([true, false, true]))
+console.log(`sum([1,3,4]) : `, sum([1,3,4]))
+console.log(`all([true, false, true]) : `, all([true, false, true]))
 
 // unsafe if empty array is provided,
 // because no Monoid structure
-console.log(first([1,3,4]))
+console.log(`first([1,3,4]) : `, first([1,3,4]))

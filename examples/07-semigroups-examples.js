@@ -1,14 +1,14 @@
 const { Map } = require('immutable-ext')
 
 const result = [1,3].concat([4,5]).concat([5,6,7])
-
-console.log(result)
+console.log(
+  `[1,3].concat([4,5]).concat([5,6,7]) : `,
+  result
+)
 
 
 const Sum = x =>
 ({
-  // x is our number
-
   // need to expose x,
   // so we can use o.x below
   x,
@@ -20,19 +20,13 @@ const Sum = x =>
 })
 
 const resSum = Sum(1).concat(Sum(2))
-
-console.log(resSum)
+console.log(`Sum(1).concat(Sum(2)) : `, resSum)
 
 
 
 const SumD = x =>
 ({
-  // x is our number
-
-  // need to expose x,
-  // so we can use key 'x' below
   x,
-
   // destructuring value for the key 'x'
   concat: ({x: y}) =>
     SumD(x + y),
@@ -42,8 +36,7 @@ const SumD = x =>
 })
 
 const resSumD = SumD(11).concat(SumD(222))
-
-console.log(resSumD)
+console.log(`SumD(11).concat(SumD(222)) : `, resSumD)
 
 
 
@@ -61,8 +54,9 @@ const All = x =>
 const resFalse = All(true).concat(All(false))
 const resTrue = All(true).concat(All(true))
 
-console.log(resFalse)
-console.log(resTrue)
+console.log(`All(true).concat(All(false)) : `, resFalse)
+console.log(`All(true).concat(All(true)) : `, resTrue)
+
 
 
 const First = x =>
@@ -78,7 +72,7 @@ const First = x =>
 
 const resFirst = First("bla").concat(First("last"))
 
-console.log(resFirst)
+console.log(`First("bla").concat(First("last")) : `, resFirst)
 
 
 // Wrap each prop into corresponding Semigroup!

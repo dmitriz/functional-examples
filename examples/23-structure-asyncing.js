@@ -20,6 +20,12 @@ const routes = Map({
   blog: '/blog'
 })
 
+console.log(`
+  Map({home: '/', about: '/about-us', blog: '/blog'})
+    .traverse(Task.of, route => httpGet(route, {}))
+    .fork(..., ...) : `
+)
+
 // apply the 2nd argument function to each route
 // and wrap into Task
 routes
@@ -48,7 +54,8 @@ Map({
 
     // need to wrap into 'List' providing 'traverse'
     List(routes).traverse(
-      Task.of, route => httpGet(route, {})
+      Task.of, 
+      route => httpGet(route, {})
     )
 )
 .fork( console.error, console.log )

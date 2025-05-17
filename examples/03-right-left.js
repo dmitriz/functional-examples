@@ -15,7 +15,7 @@ const Right = x => (
 const Left = x => (
   {
 
-    // Left ignores f, simply passes x itself
+    // Left ignores f, simply passes ahead raw value x
     map: f => Left(x),
 
     // applies the function on the left and returns raw value
@@ -37,8 +37,8 @@ const resultLeft = Left(3)
   .map(x => x + 1)
   .map(x => x / 2)
 
-console.log(resultRight) //=> Right(2)
-console.log(resultLeft) //=> Left(3)
+console.log(`Right(3) transformed: `, resultRight) //=> Right(2)
+console.log(`Left(3) transformed: `,resultLeft) //=> Left(3)
 
 
 // passing Right value,
@@ -51,6 +51,8 @@ const result = Right(2)
   // left function handles error, right function returns the value
   .fold(x => 'error', x => x)
 
+console.log(`Right(2) transformed and unwrapped with (x => 'error', x => x): `, result) //=> 1.5
+
 
 // passing Left value,
 // so all functions are ignored
@@ -62,9 +64,7 @@ const resultError = Left(2)
   // left function handles error, right function returns the value
   .fold(x => 'error', x => x)
 
-console.log(result) //=> 1.5
-console.log(resultError) //=> error
-
+console.log(`Left(2) transformed and unwrapped with (x => 'error', x => x): `, resultError) //=> error
 
 
 const findColor = name =>
@@ -78,15 +78,18 @@ const resultColor = findColor('red')
   .slice(1)
   .toUpperCase()
 
-console.log(resultColor)
+console.log(`findColor('red') transformed is: `, resultColor)
 
 
-const findColorFixed = name => {
+const findColorCases = name => {
   const found = {red: '#ff4444', blue: '#00ff00'}[name]
   return found ? Right(found) : Left(null)
 }
 
-const badColor = findColorFixed('gray')
+console.log(`findColorCases('gray') is: `, findColorCases('gray')) //=> no color
+
+
+const badColor = findColorCases('gray')
 
   // map only applies when passed Right,
   // ignored when passed Left
@@ -96,21 +99,21 @@ const badColor = findColorFixed('gray')
     c => c.toUpperCase()
   )
 
-console.log(badColor) //=> no color
+console.log(`findColorCases('gray') transformed and fold with (e => 'no color', c => c.toUpperCase()) is: `, badColor) //=> no color
 
 
 
-// ensure null will always go Left
+// ensure null (of any falsey value) will always go to Left
 const fromNullable = x =>
   x != null ? Right(x) : Left(null)
 
 // no need anymore to worry about null in our logic
 // much simpler function, no more cases
-const findColorNew = name =>
+const findColorFromNullable = name =>
   fromNullable({red: '#ff4444', blue: '#00ff00'}[name])
 
 
-const badColorNew = findColorNew('gray')
+const badColorNew = findColorFromNullable('gray')
 
   // map only applies when passed Right,
   // ignored when passed Left
@@ -120,5 +123,8 @@ const badColorNew = findColorNew('gray')
     c => c.toUpperCase()
   )
 
-console.log(badColorNew) //=> no color
+console.log(
+  `findColorFromNullable('gray') transformed and fold with (e => 'no color', c => c.toUpperCase()) is: `, 
+  badColorNew
+) //=> no color
 

@@ -1,5 +1,15 @@
-# functional-examples
-Examples with Functional JavaScript
+### functional-examples
+
+
+
+
+
+## [New functional library `cpsfy`](https://github.com/dmitriz/cpsfy)
+
+UPDATE. Check out my new advanced functional library: 
+https://github.com/dmitriz/cpsfy
+
+# Examples with Functional JavaScript
 
 Heavily annotated examples from the awesome videos
 <a href="https://egghead.io/lessons/javascript-refactoring-imperative-code-to-a-single-composed-expression-using-box">Professor Frisby Introduces Composable Functional JavaScript</a>,
@@ -7,11 +17,10 @@ see also <a href="https://www.reddit.com/r/javascript/comments/5hfq6n/100_minute
 
 See also the wonderful e-book <a href="https://drboolean.gitbooks.io/mostly-adequate-guide/content/">
 Professor Frisby's Mostly Adequate Guide to Functional Programming</a>
-by the same author.
+by the same author (See also https://github.com/MostlyAdequate/mostly-adequate-guide for the updates).
 
 
 ## What makes Prof. Frisby's course and book awesome?
-
 Both course and book amazingly manage to avoid suffering from the two widespread diseases when explaining abstract functional concepts: 
 
 - The first disease is to stay with abstract artifically simplified examples that can be easily manipulated 
@@ -29,7 +38,6 @@ demonstrating real benefits of the functional abstractions with sharp focus and 
 
 
 ## Running Examples
-
 Install the packages with either of
 ```js
 yarn install
@@ -42,5 +50,4 @@ node <file.js>
 
 
 ## Related Projects
-
 - [Monadic Libraries Examples with Tests](https://github.com/dmitriz/monadic-libraries-examples)

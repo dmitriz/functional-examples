@@ -9,7 +9,6 @@ const Sum = x =>
   // custom getter used by console.log
   inspect: () => `Sum(${x})`
 })
-
 Sum.empty = () => Sum(0)
 
 
@@ -23,7 +22,6 @@ const All = x =>
   // custom getter used by console.log
   inspect: () => `All(${x})`
 })
-
 All.empty = () => All(true)
 
 

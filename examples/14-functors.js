@@ -17,7 +17,15 @@ const res2 = Box('squirrels')
   // map( compose( f, g ) )
   .map( s => s.substr(5).toUpperCase() )
 
-console.log(res1, res2)
+console.log(
+  `Box('squirrels').map(s => s.substr(5)).map(s => s.toUpperCase()) : `,
+  res1
+)
+
+console.log(
+  `Box('squirrels').map(s => s.substr(5).toUpperCase()) : `,
+  res2
+)
 
 
 // identity pre- or post-composed
@@ -26,5 +34,19 @@ const res32 = id(Box('crayons'))
 const res41 = List.of('crayons').map(id)
 const res42 = id(List.of('crayons'))
 
-console.log(res31, res32)
-console.log(res41, res42)
+console.log(
+  `Box('crayons').map(id) : `,
+  res31
+)
+console.log(
+  `id(Box('crayons')) : `,
+  res32
+)
+console.log(
+  `List.of('crayons').map(id) : `,
+  res41
+)
+console.log(
+  `id(List.of('crayons')) : `,
+  res42
+)

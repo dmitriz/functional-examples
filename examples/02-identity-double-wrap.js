@@ -10,24 +10,25 @@ const Box = x => (
     // so we can keep chaining
     map: f => Box(f(x)),
 
-    // fold functor map, applies f and returns the raw unwrapped value,
+    // not part of functor spec
+    // applies f and returns the raw unwrapped value,
     // sends f:a->b into fold(f):Box(a)->b,
     // does not return any Box container, so can't be chained with map
     fold: f => f(x),
 
     // custom getter function -- called by console.log
-    inspect: () => `Box(${x})`
+    inspect: () => x.inspect ? `Box(${x.inspect()})` : `Box(${x})`
   }
 )
 
-
+// String => Box(String)
 const moneyToFloat =  str =>
   Box(str)
     .map(s => s.replace(/\$/g, ''))
     .map(r => parseFloat(r))
     // .fold(r => parseFloat(r))
 
-
+// String => Box(String)
 const percentToFloat = str =>
   Box(str.replace(/\%/g, ''))
     .map(replaced => parseFloat(replaced))
@@ -59,10 +60,26 @@ const applyDiscount = (price, discount) =>
     )
 
 
-console.log(moneyToFloat(' $33 ')) //=> Box(33)
-console.log(percentToFloat(' 1.23% ')) //=> Box(0.0123)
+// without fold, result is wrapped into Box twice
+const applyDiscountInBox = (price, discount) =>
+  moneyToFloat(price).map(cost =>
+
+    // nesting so cost remains in scope
+    percentToFloat(discount).map(savings =>
+      cost - cost * savings
+    )
+  )
+
+
+console.log(`moneyToFloat(' $33 ') : `, moneyToFloat(' $33 ')) //=> Box(33)
+console.log(`percentToFloat(' 1.23% ') : `, percentToFloat(' 1.23% ')) //=> Box(0.0123)
 
 const result = applyDiscount('$55', '20%')
 
-console.log(result) //=> 44
+console.log(`applyDiscount('$55', '20%') : `, result) //=> 44
+
+console.log(
+  `applyDiscountInBox('$55', '20%') : `, 
+  applyDiscountInBox('$55', '20%')
+) //=> Box(Box(44))
 

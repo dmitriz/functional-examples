@@ -2,7 +2,6 @@
 // part of Folktale https://github.com/origamitower/folktale
 const Task = require('data.task')
 
-// for comparison use
 // https://github.com/Avaq/Fluture
 const Fluture = require('fluture')
 
@@ -15,54 +14,67 @@ const showSuc = x => console.log('success: ', x)
 
 
 // general purpose Task for reading file
-const readFile = (fileName, encoding) =>
+const readFileTask = (fileName, encoding) =>
   new Task((rej, res) =>
-    fs.readFile(fileName, encoding, (err, contents) =>
-      err ? rej(err) : res(contents)
-  ))
+    fs.readFile(
+      fileName,
+      encoding,
+      (err, contents) => err ? rej(err) : res(contents)
+    )
+  )
 
-const readFileFl = (fileName, encoding) =>
+const readFileFluture = (fileName, encoding) =>
   Fluture.node(done => fs.readFile(fileName, encoding, done))
 
-
 // general purpose Task for writing file
-const writeFile = (fileName, contents) =>
+const writeFileTask = (fileName, contents) =>
   new Task((rej, res) =>
-    fs.writeFile(fileName, contents, (err, success) =>
-      err ? rej(err) : res(success)
-  ))
+    fs.writeFile(
+      fileName,
+      contents,
+      (err, success) => err ? rej(err) : res(success)
+    )
+  )
 
-
-const writeFileFl = (fileName, contents) =>
+const writeFileFluture = (fileName, contents) =>
   Fluture.node(done => fs.writeFile(fileName, contents, done))
+
 
 
 const app =
 
   // read file - returns Task
-  readFile('config.json', 'utf-8')
+  readFileTask('config.json', 'utf-8')
 
   // modify contents - plain function inside
   .map( contents => contents.replace(/8/g, '6') )
 
   // write modified content into new file
   // function with lifted target inside
-  .chain( contents => writeFile('config1.json', contents) )
+  .chain( contents => writeFileTask('config1.json', contents) )
 
+
+console.log(
+  `readFile('config.json', 'utf-8').map(contents => contents.replace(/8/g, '6')).chain(contents => writeFile('config1.json', contents)).fork(..., ...) : `
+)
 
 // only now launch the task
-app.fork( showErr, _ => showSuc("Check 'config1.json'!") )
+app.fork( showErr, _ => showSuc("Written to 'config1.json'!") )
 
 
 
 // optionally using Fluture
 // define the application
-const appFl = readFileFl('config.json', 'utf-8')
+const appFluture = readFileFluture('config.json', 'utf-8')
   .map( contents => contents.replace(/8/g, '7') )
-  .chain( contents => writeFileFl('config1-fl.json', contents))
+  .chain( contents => writeFileFluture('config1-fl.json', contents))
+
+console.log(
+  `readFileFluture('config.json', 'utf-8').map( contents => contents.replace(/8/g, '7')).chain( contents => writeFileFluture('config1-fl.json', contents)).fork(..., ...)`
+)
 
 // now call it
-appFl.fork( showErr, _ => showSuc("Check 'config1-fl.json'!"))
+appFluture.fork( showErr, _ => showSuc("Written to 'config1-fl.json'!"))
 
 
 
@@ -81,7 +93,9 @@ const app1 = readFuture('config.json', 'utf-8')
     .map( contents => contents.replace(/8/g, '6') )
     .chain( contents => writeFuture('config2.json', contents) )
 
+console.log(
+  `readFuture('config.json', 'utf-8').map(contents => contents.replace(/8/g, '6')).chain(contents => writeFuture('config2.json', contents)).fork(..., ...)`
+)
+
 // run the task
-app1.fork( showErr, _ => showSuc("Check 'config2.json'!") )
-
-
+app1.fork( showErr, _ => showSuc("Written to 'config2.json'!") )
